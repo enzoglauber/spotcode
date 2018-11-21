@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: postgres
+
+development:
+  <<: *default
+  database: spotcode_development
+
+test:
+  <<: *default
+  database: spotcode_test

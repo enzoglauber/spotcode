@@ -1,0 +1,21 @@
+CHANGE Dockerfile, docker-compose and database.yml
+chown -R $USER:$USER .
+###################
+###################
+docker run --rm --user "$(id -u):$(id -g)" -v $(pwd):/usr/src -w /usr/src -ti ruby:2.5.1 bash
+gem install rails -v '5.2.1'
+# -B= Para nao instalar as gems
+# -T= Para nao instalar os testes
+rails _5.2.1_ new . --webpack -B -T -d postgresql
+
+// YARN
+docker-compose run --rm app bundle exec yarn install 
+
+docker-compose up --build
+docker-compose run --rm app bundle install
+docker-compose run --rm app bundle exec rake db:create
+
+// DEVISE
+docker-compose run --rm app bundle exec rails g devise:install
+
+docker-compose run --rm app bundle exec rails g controller home index
