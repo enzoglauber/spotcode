@@ -23,5 +23,13 @@ docker-compose run --rm app bundle exec rake db:mgrate
 docker-compose run --rm app bundle exec rails g devise:install
 docker-compose run --rm app bundle exec rails g devise User
 
-
+// CONTROLLER
 docker-compose run --rm app bundle exec rails g controller home index
+
+//MODELS
+docker-compose run --rm app bundle exec rails g model artist name
+docker-compose run --rm app bundle exec rails g model category name
+docker-compose run --rm app bundle exec rails g model album title date:datetime category:references artist:references
+docker-compose run --rm app bundle exec rails g model song title played_count:integer album:references
+docker-compose run --rm app bundle exec rails g model recently_heard user:references album:references
+docker-compose run --rm app bundle exec rails g model favorite user:references favoritable:references{polymorphic}
