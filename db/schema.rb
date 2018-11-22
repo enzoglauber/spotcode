@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_145121) do
+ActiveRecord::Schema.define(version: 2018_11_22_152215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,57 @@ ActiveRecord::Schema.define(version: 2018_11_22_145121) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "albums", force: :cascade do |t|
+    t.string "title"
+    t.datetime "date"
+    t.bigint "category_id"
+    t.bigint "artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_albums_on_artist_id"
+    t.index ["category_id"], name: "index_albums_on_category_id"
+  end
+
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "favoritable_type"
+    t.bigint "favoritable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable_type_and_favoritable_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "recently_heards", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_recently_heards_on_album_id"
+    t.index ["user_id"], name: "index_recently_heards_on_user_id"
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "title"
+    t.integer "played_count", default: 0
+    t.bigint "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_songs_on_album_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,4 +100,10 @@ ActiveRecord::Schema.define(version: 2018_11_22_145121) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "albums", "artists"
+  add_foreign_key "albums", "categories"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "recently_heards", "albums"
+  add_foreign_key "recently_heards", "users"
+  add_foreign_key "songs", "albums"
 end
