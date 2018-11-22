@@ -8,14 +8,20 @@ gem install rails -v '5.2.1'
 # -T= Para nao instalar os testes
 rails _5.2.1_ new . --webpack -B -T -d postgresql
 
+//Renomeie o arquivo application.css para application.scss
+mv app/assets/stylesheets/application.css app/assets/stylesheets/application.scss
+
 // YARN
 docker-compose run --rm app bundle exec yarn install 
 
 docker-compose up --build
 docker-compose run --rm app bundle install
 docker-compose run --rm app bundle exec rake db:create
+docker-compose run --rm app bundle exec rake db:mgrate
 
 // DEVISE
 docker-compose run --rm app bundle exec rails g devise:install
+docker-compose run --rm app bundle exec rails g devise User
+
 
 docker-compose run --rm app bundle exec rails g controller home index

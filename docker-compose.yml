@@ -14,11 +14,11 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - '.:/portfolio'
+      - '.:/spotcode'
       - 'box:/box'
     stdin_open: true
     tty: true
-    
+
   # volume to gems
   box:
     image: busybox
