@@ -25,6 +25,7 @@ docker-compose run --rm app bundle exec rails g devise User
 
 // CONTROLLER
 docker-compose run --rm app bundle exec rails g controller home index
+docker-compose run --rm app bundle exec rails g controller dashboard index
 
 //MODELS
 docker-compose run --rm app bundle exec rails g model artist name
