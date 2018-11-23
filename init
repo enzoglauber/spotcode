@@ -29,6 +29,7 @@ docker-compose run --rm app bundle exec rails g controller dashboard index
 docker-compose run --rm app bundle exec rails g controller search index new
 docker-compose run --rm app bundle exec rails g controller categories show
 docker-compose run --rm app bundle exec rails g controller artists show
+docker-compose run --rm app bundle exec rails g controller albums show
 
 //MODELS
 docker-compose run --rm app bundle exec rails g model artist name
