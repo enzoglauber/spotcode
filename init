@@ -48,3 +48,7 @@ docker-compose run --rm app bundle exec rake db:seed
 //ADD WITH yarn
 docker-compose run --rm app bundle exec yarn add @fortawesome/fontawesome-free
 docker-compose run --rm app bundle exec yarn add jquery
+
+//PWA
+gem "serviceworker-rails"
+docker-compose run --rm app bundle exec rails g serviceworker:install

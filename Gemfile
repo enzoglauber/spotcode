@@ -16,7 +16,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # mine
 gem 'devise', '~> 4.5.0'
-gem 'pwa', '~> 4.0.5'
+# gem 'pwa', '~> 4.0.5'
+gem "serviceworker-rails"
 
 group :development, :test do  
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
