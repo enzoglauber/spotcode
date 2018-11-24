@@ -10,9 +10,13 @@ class DashboardController < ApplicationController
       @recent_albums = current_user.recently_heards.order("created_at DESC").limit(4).map(&:album)
     end
 
-    def load_recommendations
-      heard_categories = @recent_albums.map(&:category)
-      @recommended_albums = Album.joins(:category, :songs).where(category: heard_categories).includes(:songs).order("songs.played_count").select("DISTINCT albums.*").limit(4)
+    # def load_recommendations
+    #   heard_categories = @recent_albums.map(&:category)
+    #   @recommended_albums = Album.joins(:category, :songs).where(category: heard_categories).includes(:songs).order("songs.played_count").select("DISTINCT albums.*").limit(4)
+    # end
+
+    def load_recent_heard
+      @recent_albums = current_user.recently_heards.order("created_at DESC").group(:album_id).limit(4).map(&:album)
     end
 end
 
